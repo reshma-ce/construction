@@ -14,7 +14,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files from the current directory
-app.use(express.static(path.join(__dirname)));
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI)
@@ -48,7 +49,7 @@ app.post('/api/contact', async (req, res) => {
 
 // Serve Admin Page specifically
 app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin.html'));
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
 // GET All Messages

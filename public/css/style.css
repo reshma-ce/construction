@@ -78,7 +78,7 @@ section {
 #Home {
     position: relative;
     min-height: 100vh;
-    background: url('../assets/images/build.jpg') no-repeat center center/cover;
+    background: url('/assets/images/build.jpg') no-repeat center center/cover;
     padding-top: 120px;
     /* pushes content below navbar */
     background-attachment: fixed;
