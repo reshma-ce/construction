@@ -290,7 +290,7 @@
 
                 <!-- Contact Form -->
                 <div class="col-md-6">
-                    <form class="contact-form p-4 shadow rounded bg-white">
+                    <form id="contactForm" class="contact-form p-4 shadow rounded bg-white">
                         <div class="mb-3">
                             <label for="name" class="form-label">Your Name</label>
                             <input type="text" class="form-control" id="name" placeholder="John Doe">
@@ -450,6 +450,52 @@
 
         counters.forEach(counter => counterObserver.observe(counter));
 
+    </script>
+
+    <script>
+        // Contact Form Handling
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+
+                try {
+                    submitBtn.innerText = 'Sending...';
+                    submitBtn.disabled = true;
+
+                    // If running as static file, this URL might need to be absolute if server is different
+                    // But since we are setting up server.js to serve this file, relative path works
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name, email, message })
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        alert('Message sent successfully!');
+                        contactForm.reset();
+                    } else {
+                        alert('Failed to send message: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                } finally {
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
     </script>
 
 
