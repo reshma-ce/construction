@@ -123,7 +123,7 @@ app.delete('/api/messages/:id', async (req, res) => {
 
 // Fallback to index.html for root or unknown routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Start Server
