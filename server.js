@@ -18,9 +18,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('Could not connect to MongoDB:', err));
+let cachedData = null;
+
+const connectDB = async () => {
+    if (cachedData) {
+        return cachedData;
+    }
+
+    try {
+        const conn = await mongoose.connect(process.env.MONGODB_URI, {
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
+        });
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+        cachedData = conn;
+        return conn;
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error);
+        throw error;
+    }
+};
+
+// Connect to DB immediately (optional, but good for local)
+connectDB();
 
 // Import Model
 const Contact = require('./models/Contact');
@@ -28,6 +48,7 @@ const Contact = require('./models/Contact');
 // Routes
 app.post('/api/contact', async (req, res) => {
     try {
+        await connectDB();
         const { name, email, message } = req.body;
 
         const newContact = new Contact({
@@ -55,6 +76,7 @@ app.get('/admin', (req, res) => {
 // GET All Messages
 app.get('/api/messages', async (req, res) => {
     try {
+        await connectDB();
         const messages = await Contact.find().sort({ submittedAt: -1 });
         res.json(messages);
     } catch (err) {
