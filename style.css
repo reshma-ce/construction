@@ -1,0 +1,259 @@
+/* FIXED NAVBAR */
+html, body {
+  overscroll-behavior: none;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background-color: transparent;
+    transition: top 0.3s ease, background-color 0.4s ease;
+}
+
+/* Hide navbar while scrolling first half of Home */
+.header.hide {
+    top: -100px; /* moves navbar out of view */
+}
+
+/* Show navbar after half of Home scrolled */
+.header.show {
+    top: 0;
+    background-color: rgb(28, 68, 244);
+     /* solid background */
+}
+/* Navbar spacing */
+.navbar {
+    margin: 10px 0 !important;
+   
+}
+section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+.navbar-toggler {
+    border-color: rgb(245, 246, 247) !important;
+}
+
+.navbar-toggler-icon {
+    filter: brightness(0) invert(1); /* forces icon to white */
+}
+
+/* HOME SECTION BACKGROUND IMAGE */
+#Home {
+    position: relative;
+    min-height: 100vh;
+    background: url('build.jpg') no-repeat center center/cover;
+    padding-top: 120px; /* pushes content below navbar */
+    background-attachment: fixed;
+}
+
+/* DARK OVERLAY */
+#Home::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* CONTENT MUST BE ABOVE OVERLAY */
+#Home .mainpage,
+#Home .text-wrap,
+#Home .btn {
+    position: relative;
+    z-index: 2;
+}
+
+/* CENTER CONTENT */
+#Home .mainpage {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+/* Center content vertically in Home section */
+.text-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    padding: 0 20px;
+}
+
+
+
+/* Headings & paragraph styling */
+.main-heading {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.main-para {
+    font-size: 1.2rem;
+    max-width: 700px;
+}
+
+/* Optional: full-width button */
+#Home .btn .btn-lg {
+    z-index: 1; /* ensure above overlay */
+}
+
+
+
+/* ABOUT US SECTION */
+.abt-div {  
+   margin-top: 150px;
+   
+}
+
+
+.abt-head{
+font-size: 2.5rem;
+font-weight: bold;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+color: rgba(11, 61, 225, 0.9);
+ font-style: italic;
+}
+.abt-para{
+font-size: 1.2rem;
+line-height: 1.6;
+margin-top: 20px;
+}
+.img-div img{
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 400px;
+
+}
+.abt-exp {
+    gap: 3rem;
+}
+
+@media (max-width: 768px) {
+    .abt-exp {
+        gap: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.exp-head {
+    font-size: 3.6rem;     /* bigger numbers */
+    font-weight: 600;
+    text-align: center;
+    color:  rgb(240, 35, 17);
+    font-style: italic;
+    margin-top: 20px;
+}
+
+.exp-para {
+    font-size: 1.5rem;     /* bigger text */
+    font-weight: 400;
+    margin-top: -5px;     /* tighter alignment (optional) */
+    text-align: center;
+}
+.coreval {
+    margin-top: 140px;
+    
+    
+}
+
+.coreval-head{
+    font-size: 1.9rem;
+    font-weight: 500;
+    text-align: center;
+    color: rgb(21, 92, 207);
+    font-style: italic;
+    padding: 15px;
+    margin-bottom: 70px;
+}
+
+.coreval-item p{
+    text-align:justify;
+    text-justify: inter-word;   /* optional - makes spacing cleaner */
+    line-height: 1.5;
+    
+}
+.iconsclass{
+    margin-bottom: 50px;
+    margin-top: 70px;
+}
+
+.serv-head{
+    font-size: 2.5rem;
+    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgba(11, 61, 225, 0.9);
+     font-style: italic;
+     margin-bottom: 50px;
+}
+.serv-head {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+
+/* Carousel image */
+.service-img {
+  width: 100%;          /* all images same width */
+  height: 70vh;        /* all images same height */
+  object-fit: contain no-repeat;   /* crop if needed */
+  display: block;
+}
+.carousel-img-wrapper {
+  width: 100%;             /* carousel full width */
+  height: 50vh;            /* fixed height for all slides */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;        /* crop excess image */
+}
+/* Caption at bottom of image */
+.carousel-caption-bottom {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  font-size: 1.5rem;
+  border-radius: 5px;
+}
+
+/* Black arrows */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}
+
+/* Black indicators */
+.carousel-indicators [data-bs-target] {
+  background-color: black;
+}
+
+.carousel-indicators .active {
+  background-color: black;
+}
