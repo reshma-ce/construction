@@ -40,7 +40,7 @@ const connectDB = async () => {
 };
 
 // Connect to DB immediately (optional, but good for local)
-connectDB();
+// connectDB(); // Removed to prevent blocking static file serving on Vercel cold starts
 
 // Import Model
 const Contact = require('./models/Contact');
