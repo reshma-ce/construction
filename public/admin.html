@@ -351,8 +351,15 @@
         async function fetchMessages() {
             try {
                 const res = await fetch('/api/messages');
-                const messages = await res.json();
-                renderTable(messages);
+                const data = await res.json();
+
+                if (Array.isArray(data)) {
+                    renderTable(data);
+                } else {
+                    console.error('Server returned error:', data);
+                    alert('Error loading messages: ' + (data.message || 'Unknown error'));
+                    renderTable([]); // Render empty table to prevent crash
+                }
             } catch (err) {
                 console.error('Error fetching messages:', err);
                 alert('Failed to load messages from server.');
