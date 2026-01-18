@@ -160,6 +160,11 @@ section {
     font-style: italic;
 }
 
+#Services {
+    background-color: #f2f6fc;
+    /* Light blue-gray to match the theme */
+}
+
 .abt-para {
     font-size: 1.2rem;
     line-height: 1.6;
