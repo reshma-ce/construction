@@ -25,6 +25,11 @@ const connectDB = async () => {
         return cachedData;
     }
 
+    if (!process.env.MONGODB_URI) {
+        console.error('CRITICAL ERROR: MONGODB_URI environment variable is not defined.');
+        throw new Error('MONGODB_URI environment variable is missing');
+    }
+
     try {
         const conn = await mongoose.connect(process.env.MONGODB_URI, {
             serverSelectionTimeoutMS: 5000,
